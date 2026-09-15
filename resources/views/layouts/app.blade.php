@@ -18,20 +18,26 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-bg-light text-text-main" x-data="{ sidebarOpen: false }">
+    <body class="font-sans antialiased bg-bg-light text-text-main" x-data="{ mobileMenuOpen: false, sidebarCollapsed: false }">
         <div class="flex h-screen overflow-hidden">
             <!-- Sidebar -->
             <x-sidebar />
 
             <!-- Main Content -->
-            <div class="flex-1 flex flex-col h-screen overflow-y-auto">
+            <div class="flex-1 flex flex-col h-screen overflow-y-auto transition-all duration-300">
                 <!-- Header -->
                 <header class="flex justify-between items-center py-6 px-8 bg-transparent">
                     <div class="flex items-center gap-4">
-                        <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-primary hover:text-accent focus:outline-none">
+                        <!-- Mobile Menu Toggle -->
+                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-primary hover:text-accent focus:outline-none">
                             <i class="fa-solid fa-bars text-xl"></i>
                         </button>
-                        <h1 class="text-2xl font-semibold text-primary">
+                        <!-- Desktop Sidebar Toggle -->
+                        <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden md:flex items-center justify-center w-10 h-10 rounded-xl bg-white border border-border shadow-sm text-text-muted hover:text-primary hover:border-primary/30 hover:bg-primary/5 focus:outline-none transition-all duration-300 group">
+                            <i class="fa-solid text-lg transition-transform duration-300 group-hover:scale-110" :class="sidebarCollapsed ? 'fa-indent text-accent' : 'fa-outdent'"></i>
+                        </button>
+
+                        <h1 class="text-2xl font-semibold text-primary ml-2">
                             @isset($header)
                                 {{ $header }}
                             @else
@@ -48,14 +54,14 @@
                 </header>
 
                 <!-- Page Content -->
-                <main class="px-8 pb-8 max-w-[1400px]">
+                <main class="px-8 pb-8 w-full flex-1">
                     {{ $slot }}
                 </main>
             </div>
             
             <!-- Mobile Sidebar Overlay -->
-            <div x-show="sidebarOpen" 
-                 @click="sidebarOpen = false"
+            <div x-show="mobileMenuOpen" 
+                 @click="mobileMenuOpen = false"
                  class="fixed inset-0 bg-black/50 z-40 md:hidden"
                  x-transition:enter="transition-opacity ease-linear duration-300"
                  x-transition:enter-start="opacity-0"

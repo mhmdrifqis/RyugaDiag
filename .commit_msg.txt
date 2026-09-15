@@ -1,0 +1,8 @@
+﻿feat: implement full expert system and revamp UI/UX
+
+- Add Forward Chaining algorithm in ForwardChainingService
+- Implement Excel import for Symptoms, Damages, and Rules data
+- Revamp UI/UX with Glassmorphism aesthetic and responsive sidebar
+- Replace diagnosis form with AlpineJS smart search multi-select
+- Add print report feature for diagnosis history
+- Set application timezone to Asia/Jakarta

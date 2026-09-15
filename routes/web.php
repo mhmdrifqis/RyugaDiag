@@ -34,9 +34,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
     
+    Route::post('gejala/import', [GejalaController::class, 'import'])->name('gejala.import');
     Route::resource('gejala', GejalaController::class);
+    
+    Route::post('kerusakan/import', [KerusakanController::class, 'import'])->name('kerusakan.import');
     Route::resource('kerusakan', KerusakanController::class);
+    
+    Route::post('rule/import', [RuleController::class, 'import'])->name('rule.import');
     Route::resource('rule', RuleController::class);
+    
     Route::resource('teknisi', TeknisiController::class);
 });
 
